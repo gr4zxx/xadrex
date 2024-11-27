@@ -18,7 +18,13 @@ class Tabuleiro {
         casa.peca = peca;
         casa.elementoHtml.innerHTML = peca.simbolo; // Colocando o símbolo da peça na casa
     }
+
+    clicarCasa(casa){
+        console.log(casa);
+    }
+
 }
+
 
 class Casa {
     constructor(linha, coluna) {
@@ -36,7 +42,10 @@ class Casa {
         }
 
         document.getElementById('tabuleiro').appendChild(this.elementoHtml);
+    
+        this.elementoHtml.addEventListener(´tabuleiro´)
     }
+
 }
 
 class Peca {
