@@ -11,6 +11,8 @@ class Tabuleiro {
             }
         }
         console.log(this.tabuleiro);
+
+        this.selecionada = null;
     }
 
     colocarPeca(peca, linha, coluna) {
@@ -20,7 +22,16 @@ class Tabuleiro {
     }
 
     clicarCasa(casa){
-        console.log(casa);
+        if (this.selecionada && this.selecionada.peca){
+            consta peca = this.selecionada.peca;
+            casa.SetPeca(peca);
+            this.selecionada.setPeca(null);
+            this.selecionada = null;
+    
+    
+        }else if (casa.peca) {
+            this.selecionada = casa;
+        }
     }
 
 }
@@ -46,6 +57,10 @@ class Casa {
         this.elementoHtml.addEventListener(´tabuleiro´)
     }
 
+}
+setPeca(peca) {
+    this.peca = peca;
+    this.elementoHtml.innerHtml = peca ? peca,simbolo : ´´;
 }
 
 class Peca {
