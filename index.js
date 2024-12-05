@@ -1,9 +1,8 @@
 class Tabuleiro {
     constructor() {
         this.nome = "Tabuleiro";
-        this.tabuleiro = [];
 
-        // Inicializando o tabuleiro com 8x8 casas
+        this.tabuleiro = [];
         for (let linha = 0; linha < 8; linha++) {
             this.tabuleiro[linha] = [];
             for (let coluna = 0; coluna < 8; coluna++) {
@@ -18,24 +17,20 @@ class Tabuleiro {
     colocarPeca(peca, linha, coluna) {
         const casa = this.tabuleiro[linha][coluna];
         casa.peca = peca;
-        casa.elementoHtml.innerHTML = peca.simbolo; // Colocando o símbolo da peça na casa
+        casa.elementoHtml.innerHTML = peca.simbolo;
     }
 
-    clicarCasa(casa){
-        if (this.selecionada && this.selecionada.peca){
-            consta peca = this.selecionada.peca;
-            casa.SetPeca(peca);
+    clicarCasa(casa) {
+        if (this.selecionada && this.selecionada.peca) {
+            const peca = this.selecionada.peca;
+            casa.setPeca(peca);
             this.selecionada.setPeca(null);
             this.selecionada = null;
-    
-    
         }else if (casa.peca) {
             this.selecionada = casa;
         }
     }
-
 }
-
 
 class Casa {
     constructor(linha, coluna) {
@@ -51,16 +46,17 @@ class Casa {
         } else {
             this.elementoHtml.classList.add('escura');
         }
-
         document.getElementById('tabuleiro').appendChild(this.elementoHtml);
-    
-        this.elementoHtml.addEventListener(´tabuleiro´)
+
+        this.elementoHtml.addEventListener('click', () => {
+            tabuleiro.clicarCasa(this);
+        })
     }
 
-}
-setPeca(peca) {
-    this.peca = peca;
-    this.elementoHtml.innerHtml = peca ? peca,simbolo : ´´;
+    setPeca(peca) {
+        this.peca = peca;
+        this.elementoHtml.innerHTML = peca ? peca.simbolo : '';
+    }
 }
 
 class Peca {
@@ -81,85 +77,69 @@ class Peca {
     }
 }
 
-// Definindo classes para as diferentes peças de xadrez
-
-class Rei extends Peca {
+class Peao extends Peca {
     constructor(cor, linha, coluna) {
         super(cor, linha, coluna);
-        this.simbolo = cor === 'branca' ? '&#9812;' : '&#9818;'; // Rei branco e preto
-    }
-}
-
-class Rainha extends Peca {
-    constructor(cor, linha, coluna) {
-        super(cor, linha, coluna);
-        this.simbolo = cor === 'branca' ? '&#9813;' : '&#9819;'; // Rainha branca e preta
-    }
-}
-
-class Bispo extends Peca {
-    constructor(cor, linha, coluna) {
-        super(cor, linha, coluna);
-        this.simbolo = cor === 'branca' ? '&#9815;' : '&#9821;'; // Bispo branco e preto
-    }
-}
-
-class Cavalo extends Peca {
-    constructor(cor, linha, coluna) {
-        super(cor, linha, coluna);
-        this.simbolo = cor === 'branca' ? '&#9816;' : '&#9822;'; // Cavalo branco e preto
+        this.simbolo = cor === 'branca' ? '&#9817;' : '&#9823;';
     }
 }
 
 class Torre extends Peca {
     constructor(cor, linha, coluna) {
         super(cor, linha, coluna);
-        this.simbolo = cor === 'branca' ? '&#9814;' : '&#9820;'; // Torre branca e preta
+        this.simbolo = cor === 'branca' ? '&#9814;' : '&#9820;';
     }
 }
 
-class Peao extends Peca {
+class Cavalo extends Peca {
     constructor(cor, linha, coluna) {
         super(cor, linha, coluna);
-        this.simbolo = cor === 'branca' ? '&#9817;' : '&#9823;'; // Peão branco e preto
+        this.simbolo = cor === 'branca' ? '&#9816;' : '&#9822;';
     }
 }
 
-// Criando o tabuleiro
+class Bispo extends Peca {
+    constructor(cor, linha, coluna) {
+        super(cor, linha, coluna);
+        this.simbolo = cor === 'branca' ? '&#9815;' : '&#9821;';
+    }
+}
+
+class Rei extends Peca {
+    constructor(cor, linha, coluna) {
+        super(cor, linha, coluna);
+        this.simbolo = cor === 'branca' ? '&#9812;' : '&#9818;';
+    }
+}
+
+class Rainha extends Peca {
+    constructor(cor, linha, coluna) {
+        super(cor, linha, coluna);
+        this.simbolo = cor === 'branca' ? '&#9813;' : '&#9819;';
+    }
+}
+
 const tabuleiro = new Tabuleiro();
 
-// Colocando as peças no tabuleiro
+// Peças Brancas
+const pecasBrancas = [
+    new Peao('branca', 1, 0), new Peao('branca', 1, 1), new Peao('branca', 1, 2), new Peao('branca', 1, 3),
+    new Peao('branca', 1, 4), new Peao('branca', 1, 5), new Peao('branca', 1, 6), new Peao('branca', 1, 7),
+    new Torre('branca', 0, 0), new Torre('branca', 0, 7), new Cavalo('branca', 0, 1), new Cavalo('branca', 0, 6),
+    new Bispo('branca', 0, 2), new Bispo('branca', 0, 5), new Rainha('branca', 0, 3), new Rei('branca', 0, 4)
+];
 
-// 8 Peões brancos na linha 1 (segunda linha)
-for (let coluna = 0; coluna < 8; coluna++) {
-    const peaoBranco = new Peao('branca', 1, coluna);
-    tabuleiro.colocarPeca(peaoBranco, 1, coluna);
-}
+peao1 = new Peao('preta', 6, 0);
+tabuleiro.colocarPeca(peao1,6,0);
 
-// 8 Peões pretos na linha 6 (sétima linha)
-for (let coluna = 0; coluna < 8; coluna++) {
-    const peaoPreto = new Peao('preta', 6, coluna);
-    tabuleiro.colocarPeca(peaoPreto, 6, coluna);
-}
+// Peças Pretas
+const pecasPretas = [
+    new Peao('preta', 6, 0), new Peao('preta', 6, 1), new Peao('preta', 6, 2), new Peao('preta', 6, 3),
+    new Peao('preta', 6, 4), new Peao('preta', 6, 5), new Peao('preta', 6, 6), new Peao('preta', 6, 7),
+    new Torre('preta', 7, 0), new Torre('preta', 7, 7), new Cavalo('preta', 7, 1), new Cavalo('preta', 7, 6),
+    new Bispo('preta', 7, 2), new Bispo('preta', 7, 5), new Rainha('preta', 7, 3), new Rei('preta', 7, 4)
+];
 
-// Colocando as peças maiores
-tabuleiro.colocarPeca(new Rei('branca', 0, 4), 0, 4);     // Rei branco
-tabuleiro.colocarPeca(new Rei('preta', 7, 4), 7, 4);     // Rei preto
-
-tabuleiro.colocarPeca(new Rainha('branca', 0, 3), 0, 3);  // Rainha branca
-tabuleiro.colocarPeca(new Rainha('preta', 7, 3), 7, 3);  // Rainha preta
-
-tabuleiro.colocarPeca(new Bispo('branca', 0, 2), 0, 2);   // Bispo branco (esquerda)
-tabuleiro.colocarPeca(new Bispo('branca', 0, 5), 0, 5);   // Bispo branco (direita)
-tabuleiro.colocarPeca(new Bispo('preta', 7, 2), 7, 2);   // Bispo preto (esquerda)
-tabuleiro.colocarPeca(new Bispo('preta', 7, 5), 7, 5);   // Bispo preto (direita)
-
-tabuleiro.colocarPeca(new Cavalo('branca', 0, 1), 0, 1);  // Cavalo branco (esquerda)
-tabuleiro.colocarPeca(new Cavalo('branca', 0, 6), 0, 6);  // Cavalo branco (direita)
-tabuleiro.colocarPeca(new Cavalo('preta', 7, 1), 7, 1);  // Cavalo preto (esquerda)
-tabuleiro.colocarPeca(new Cavalo('preta', 7, 6), 7, 6);  // Cavalo preto (direita)
-
-tabuleiro.colocarPeca(new Torre('branca', 0, 0), 0, 0);   // Torre branca (esquerda)
-tabuleiro.colocarPeca(new Torre('branca', 0, 7), 0, 7);   // Torre branca (direita)
-tabuleiro.colocarPeca(new Torre('preta', 7, 0), 7, 0);   // Torre preta (esquerda)
-tabuleiro.colocarPeca(new Torre('preta', 7, 7), 7, 7);   // Torre preta (direita)
+// Colocar as peças brancas e pretas no tabuleiro
+pecasBrancas.forEach(peca => tabuleiro.colocarPeca(peca, peca.linha, peca.coluna));
+pecasPretas.forEach(peca => tabuleiro.colocarPeca(peca, peca.linha, peca.coluna));
